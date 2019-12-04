@@ -1,38 +1,75 @@
-String city = "edmonton";
-String currentWeatherURL = "https://api.openweathermap.org/data/2.5/weather?";
-String forecastWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?";
-String edmontonID = "id=5946768";
-String calgaryID = "id=5913490";
-String redDeerID = "id=6118158";
-String apiKey = "APPID=fbf75f6b3b2c0211af00b07df6f1309f";
-String mode = "mode=json";
-String unitMetric = "units=metric";
-String and = "&";
-String currentEdmontonURL = currentWeatherURL+edmontonID+and+apiKey+and+mode+and+unitMetric;
-String currentCalgaryURL = currentWeatherURL+calgaryID+and+apiKey+and+mode+and+unitMetric;
-String currentRedDeerURL = currentWeatherURL+redDeerID+and+apiKey+and+mode+and+unitMetric;
-String forecastEdmontonURL = forecastWeatherURL+edmontonID+and+apiKey+and+mode+and+unitMetric;
-String forecastCalgaryURL = forecastWeatherURL+calgaryID+and+apiKey+and+mode+and+unitMetric;
-String forecastRedDeerURL = forecastWeatherURL+redDeerID+and+apiKey+and+mode+and+unitMetric;
-JSONObject jsonCurrentEdmonton = loadJSONObject(currentEdmontonURL);
-JSONObject jsonCurrentCalgary = loadJSONObject(currentCalgaryURL);
-JSONObject jsonCurrentRedDeer = loadJSONObject(currentRedDeerURL);
-JSONObject jsonForecastEdmonton = loadJSONObject(forecastEdmontonURL);
-JSONObject jsonForecastCalgary = loadJSONObject(forecastCalgaryURL);
-JSONObject jsonForecastRedDeer = loadJSONObject(forecastRedDeerURL);
+String URLCurrentEdmontonMain;
+String URLForecastEdmontonMain;
+String URLCurrentCalgaryMain;
+String URLForecastCalgaryMain;
+String URLCurrentRedDeerMain;
+String URLForecastRedDeerMain;
+
+JSONObject jsonCurrentEdmontonMain;
+JSONObject jsonForecastEdmontonMain;
+JSONObject jsonCurrentCalgaryMain;
+JSONObject jsonForecastCalgaryMain;
+JSONObject jsonCurrentRedDeerMain;
+JSONObject jsonForecastRedDeerMain;
+
+
+String currentWeatherEdmontonMain, currentDescriptionEdmontonMain,currentIconEdmontonMain;
+float currentTempEdmontonMain,currentTempMinEdmontonMain,currentTempMaxEdmontonMain;
+int currentSunriseEdmontonMain,currentSunsetEdmontonMain;
+Date apiCurrentDateCall;
+
+String forecastWeatherEdmontonMain,forecastDescriptionEdmontonMain,forecastIconEdmontonMain;
+float forecastTempEdmontonMain,forecastTempMinEdmontonMain,forecastTempMaxEdmontonMain;
+int forecastSunriseEdmontonMain,forecastSunsetEdmontonMain;
+Date apiForecastDateCall;
+
+String currentWeatherCalgaryMain, currentDescriptionCalgaryMain,currentIconCalgaryMain;
+float currentTempCalgaryMain,currentTempMinCalgaryMain,currentTempMaxCalgaryMain;
+int currentSunriseCalgaryMain,currentSunsetCalgaryMain;
+
+String forecastWeatherCalgaryMain,forecastDescriptionCalgaryMain,forecastIconCalgaryMain;
+float forecastTempCalgaryMain,forecastTempMinCalgaryMain,forecastTempMaxCalgaryMain;
+int forecastSunriseCalgaryMain,forecastSunsetCalgaryMain;
+
+String currentWeatherRedDeerMain, currentDescriptionRedDeerMain,currentIconRedDeerMain;
+float currentTempRedDeerMain,currentTempMinRedDeerMain,currentTempMaxRedDeerMain;
+int currentSunriseRedDeerMain,currentSunsetRedDeerMain;
+
+String forecastWeatherRedDeerMain,forecastDescriptionRedDeerMain,forecastIconRedDeerMain;
+float forecastTempRedDeerMain,forecastTempMinRedDeerMain,forecastTempMaxRedDeerMain;
+int forecastSunriseRedDeerMain,forecastSunsetRedDeerMain;
+
+int city = 1;
+int day = 0;
+
+PFont font;
 void setup(){
-size(1536,864);
-rectMode(CORNERS);
+  UrlAssembly();
+  API();
+  variablePopulation();
+  size(1536,864);
+  rectMode(CORNERS);
+  font = createFont("Times New Roman", 32);
+  textFont(font);
+  textAlign(CENTER, CENTER);
 }
 void draw(){
-rect(0,0,width,height/10);//week forcast nav bar
-rect(0,height*4/5,width*2/5,height/10);//right now picture and temp
-rect(width*2/5,height/10,width,height*4/5);//today graph
-tabs();
-if (city=="edmonton"){drawEdmonton();}
-if (city=="calgary"){drawCalgary();}
-if (city=="redDeer"){drawRedDeer();}
+  rect(0,0,width,height/10);
+  rect(0,height*4/5,width*2/5,height/10);
+  rect(width*2/5,height/10,width,height*4/5);
+  rect(width,height/10,width*28/30,height*2/10);
+  fill(0);
+  textFont(font,20);
+  text("refresh",width*29/30,height*3/20);
+  fill(210);
+  if (city==1){drawEdmonton();}
+  if (city==2){drawCalgary();}
+  if (city==3){drawRedDeer();}
+  cityTabs();
+  dayTabs();
 }
 void mouseClicked(){
-    TabClick();
+  cityTabClick();
+  dayTabClick();
+  if (mouseX>width*28/30&&mouseX<width&&mouseY>height/10&&mouseY<height*2/10){variablePopulation();API();}
 }
