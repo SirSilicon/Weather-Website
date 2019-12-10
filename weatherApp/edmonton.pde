@@ -21,7 +21,7 @@ void drawEdmonton(){
     text("Max",width*7/20,height*7/10); 
     text(forecastTempMinEdmontonMain,width*3/40,height*6/10); 
     text(forecastTempMaxEdmontonMain,width*13/40,height*6/10); 
-    text(forecastDescriptionEdmontonMain,width*1/2,height*7/40);
+    text(forecastDescriptionEdmontonMain,width*7/10,height*7/40);
   }
   fill(210);
 }

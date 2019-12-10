@@ -21,7 +21,7 @@ void drawRedDeer(){
     text("Max",width*7/20,height*7/10); 
     text(forecastTempMinRedDeerMain,width*3/40,height*6/10); 
     text(forecastTempMaxRedDeerMain,width*13/40,height*6/10); 
-    text(forecastDescriptionRedDeerMain,width*1/2,height*7/40);
+    text(forecastDescriptionRedDeerMain,width*7/10,height*7/40);
   }
   fill(210);
 }
